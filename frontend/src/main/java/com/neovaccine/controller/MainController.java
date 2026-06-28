@@ -1,5 +1,4 @@
 package com.neovaccine.controller;
-
 import com.neovaccine.model.PeptidePrediction;
 import com.neovaccine.service.ApiService;
 import com.neovaccine.service.ApiService.PredictionResult;
