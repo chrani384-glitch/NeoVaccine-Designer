@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    MainView.fxml — The UI LAYOUT FILE
+    ====================================
+    This file is like the BLUEPRINT of our app's window.
+    It describes WHERE everything appears on screen.
+    
+    FXML is similar to HTML — it's a markup language for describing UI.
+    JavaFX reads this file and builds the actual window from it.
+    
+    STRUCTURE:
+    ┌─────────────────────────────────────────────────────────────────┐
+    │  HEADER: Title + Backend Status                                  │
+    ├──────────────────────┬──────────────────────────────────────────┤
+    │  LEFT PANEL          │  RIGHT PANEL                             │
+    │  ┌────────────────┐  │  ┌────────────────────────────────────┐  │
+    │  │ Peptide Input  │  │  │  Summary Stats Bar                 │  │
+    │  │ (TextArea)     │  │  ├────────────────────────────────────┤  │
+    │  ├────────────────┤  │  │  Results Table                     │  │
+    │  │ HLA Alleles    │  │  │  (TableView)                       │  │
+    │  │ (ListView)     │  │  ├────────────────────────────────────┤  │
+    │  ├────────────────┤  │  │  Charts: BarChart | PieChart       │  │
+    │  │ Action Buttons │  │  └────────────────────────────────────┘  │
+    │  └────────────────┘  │                                          │
+    ├──────────────────────┴──────────────────────────────────────────┤
+    │  FOOTER: Status Label + Progress Bar                             │
+    └─────────────────────────────────────────────────────────────────┘
+-->
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.neovaccine.controller.MainController"
+            styleClass="root-pane">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TOP HEADER BAR
+         Contains: App title, subtitle, backend status indicator
+    ════════════════════════════════════════════════════════════════ -->
+    <top>
+        <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+            
+            <!-- DNA helix emoji icon + title -->
+            <Label text="🧬" style="-fx-font-size: 32px;"/>
+            
+            <VBox spacing="2">
+                <Label text="NeoVaccine Designer" styleClass="app-title"/>
+                <Label text="MHC-Peptide Binding Prediction &amp; Neoantigen Visualization" 
+                       styleClass="app-subtitle"/>
+            </VBox>
+            
+            <!-- Spacer: pushes backend status to the right -->
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <!-- Backend status indicator (green/red dot) -->
+            <VBox alignment="CENTER_RIGHT" spacing="4">
+                <Label text="Server Status" styleClass="section-label"/>
+                <Label fx:id="backendStatusLabel" text="⏳ Checking..." 
+                       styleClass="status-badge"/>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         MAIN CONTENT AREA (Left Panel + Right Panel side by side)
+    ════════════════════════════════════════════════════════════════ -->
+    <center>
+        <HBox spacing="0">
+            
+            <!-- ────────────────────────────────────────────────────
+                 LEFT PANEL: Input Controls
+                 Fixed width of 320px
+            ──────────────────────────────────────────────────────── -->
+            <VBox styleClass="left-panel" spacing="16" prefWidth="320" minWidth="280">
+                <padding><Insets top="20" right="16" bottom="20" left="20"/></padding>
+                
+                <!-- Section: Peptide Input -->
+                <Label text="📝 Peptide Sequences" styleClass="section-header"/>
+                <Label text="Enter one sequence per line (8-14 amino acids each):" 
+                       styleClass="section-hint" wrapText="true"/>
+                
+                <!-- The big text area where user types peptides -->
+                <TextArea fx:id="peptideInputArea"
+                          promptText="SIINFEKL&#10;GILGFVFTL&#10;NLVPMVATV&#10;KLGGALQAK&#10;RYLRDQQLL"
+                          styleClass="peptide-input"
+                          prefHeight="160"
+                          wrapText="true"/>
+                
+                <!-- Load from file button -->
+                <Button fx:id="loadFileButton" text="📂 Load from FASTA/TXT File"
+                        styleClass="secondary-button"
+                        onAction="#onLoadFileClicked"
+                        maxWidth="Infinity"/>
+                
+                <Separator/>
+                
+                <!-- Section: HLA Allele Selection -->
+                <Label text="🔬 Select HLA Alleles" styleClass="section-header"/>
+                <Label text="Ctrl+Click to select multiple alleles:" 
+                       styleClass="section-hint"/>
+                
+                <!-- The list of HLA alleles (multiple selection) -->
+                <ListView fx:id="alleleListView"
+                          styleClass="allele-list"
+                          prefHeight="200"/>
+                
+                <Separator/>
+                
+                <!-- Section: Filter Controls -->
+                <Label text="🔍 Filter Results" styleClass="section-header"/>
+                
+                <TextField fx:id="searchField"
+                           promptText="Search by peptide or allele..."
+                           styleClass="search-field"/>
+                
+                <ComboBox fx:id="filterComboBox"
+                          styleClass="filter-combo"
+                          maxWidth="Infinity"/>
+                
+                <Separator/>
+                
+                <!-- Action Buttons -->
+                <Button fx:id="predictButton" text="🚀 Run Prediction"
+                        styleClass="primary-button"
+                        onAction="#onPredictClicked"
+                        maxWidth="Infinity"
+                        prefHeight="44"/>
+                
+                <HBox spacing="8">
+                    <Button fx:id="clearButton" text="🗑 Clear"
+                            styleClass="danger-button"
+                            onAction="#onClearClicked"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    
+                    <Button fx:id="exportCsvButton" text="💾 Export CSV"
+                            styleClass="success-button"
+                            onAction="#onExportCsvClicked"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                            disable="true"/>
+                </HBox>
+                
+            </VBox>
+            
+            <!-- Divider line between panels -->
+            <Separator orientation="VERTICAL"/>
+            
+            <!-- ────────────────────────────────────────────────────
+                 RIGHT PANEL: Results area
+                 Takes up all remaining space
+            ──────────────────────────────────────────────────────── -->
+            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                
+                <!-- Summary Stats Bar -->
+                <HBox styleClass="stats-bar" spacing="0" alignment="CENTER">
+                    <padding><Insets top="12" right="24" bottom="12" left="24"/></padding>
+                    
+                    <VBox styleClass="stat-box" alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="labelTotalPredictions" text="0" styleClass="stat-number"/>
+                        <Label text="Total Predictions" styleClass="stat-label"/>
+                    </VBox>
+                    
+                    <Separator orientation="VERTICAL"/>
+                    
+                    <VBox styleClass="stat-box stat-green" alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="labelStrongBinders" text="0" styleClass="stat-number-green"/>
+                        <Label text="Strong Binders" styleClass="stat-label"/>
+                    </VBox>
+                    
+                    <Separator orientation="VERTICAL"/>
+                    
+                    <VBox styleClass="stat-box stat-yellow" alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="labelWeakBinders" text="0" styleClass="stat-number-yellow"/>
+                        <Label text="Weak Binders" styleClass="stat-label"/>
+                    </VBox>
+                    
+                    <Separator orientation="VERTICAL"/>
+                    
+                    <VBox styleClass="stat-box stat-red" alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="labelNonBinders" text="0" styleClass="stat-number-red"/>
+                        <Label text="Non-Binders" styleClass="stat-label"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Results Table -->
+                <TableView fx:id="resultsTable"
+                           styleClass="results-table"
+                           VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colPeptide"        text="Peptide"          prefWidth="130"/>
+                        <TableColumn fx:id="colLength"         text="Length"           prefWidth="60"/>
+                        <TableColumn fx:id="colAllele"         text="HLA Allele"       prefWidth="130"/>
+                        <TableColumn fx:id="colPercentRank"    text="PC_ Rank"           prefWidth="90"/>
+                        <TableColumn fx:id="colAffinity"       text="Affinity (nM)"    prefWidth="110"/>
+                        <TableColumn fx:id="colBinderLevel"    text="Binder Level"     prefWidth="140"/>
+                        <TableColumn fx:id="colImmunogenicity" text="Immunogenicity"   prefWidth="110"/>
+                    </columns>
+                </TableView>
+                
+                <!-- Charts Section -->
+                <HBox spacing="0" prefHeight="280">
+                    
+                    <!-- Bar Chart: Percent Rank per peptide -->
+                    <BarChart fx:id="bindingBarChart"
+                              styleClass="binding-chart"
+                              HBox.hgrow="ALWAYS"
+                              animated="true"
+                              barGap="2" categoryGap="8">
+                        <xAxis>
+                            <CategoryAxis fx:id="barChartXAxis" label="Peptide"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="barChartYAxis" label="Percent Rank"/>
+                        </yAxis>
+                    </BarChart>
+                    
+                    <Separator orientation="VERTICAL"/>
+                    
+                    <!-- Pie Chart: Binder distribution -->
+                    <PieChart fx:id="binderPieChart"
+                              styleClass="binder-pie-chart"
+                              prefWidth="300"
+                              minWidth="250"
+                              animated="true"
+                              labelsVisible="true"/>
+                </HBox>
+                
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         BOTTOM STATUS BAR
+         Shows current status + progress bar
+    ════════════════════════════════════════════════════════════════ -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            
+            <Label fx:id="statusLabel" 
+                   text="Ready. Enter peptide sequences and select HLA alleles."
+                   styleClass="status-text"
+                   HBox.hgrow="ALWAYS"/>
+            
+            <ProgressBar fx:id="progressBar"
+                         progress="0"
+                         prefWidth="200"
+                         styleClass="progress"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

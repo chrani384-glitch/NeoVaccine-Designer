@@ -1,0 +1,482 @@
+/*
+ * dark-theme.css — Visual Styling for NeoVaccine Designer
+ * =========================================================
+ * This file controls HOW the app LOOKS — colors, fonts, sizes, spacing.
+ * 
+ * CSS in JavaFX works ALMOST like CSS in web browsers.
+ * 
+ * DESIGN THEME:
+ *   - Dark background (#0d1117 — like GitHub dark)
+ *   - Accent: Cyan/teal (#00bcd4) — medical/scientific feel
+ *   - Success: Green  (#00e676)   — strong binders
+ *   - Warning: Yellow (#ffca28)   — weak binders
+ *   - Danger:  Red    (#ef5350)   — non-binders
+ *   - Font: System sans-serif (clean and readable)
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   ROOT / BASE STYLES
+   .root applies to the entire application
+═══════════════════════════════════════════════════════════════ */
+.root {
+    -fx-background-color: #0d1117;
+    -fx-font-family: "Segoe UI", "SF Pro Display", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #c9d1d9;
+}
+
+.root-pane {
+    -fx-background-color: #0d1117;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER BAR
+═══════════════════════════════════════════════════════════════ */
+.header-bar {
+    -fx-background-color: #161b22;
+    -fx-border-color: #30363d;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-text-fill: #e6edf3;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", monospace;
+}
+
+.app-subtitle {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 12px;
+}
+
+.status-badge {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEFT PANEL
+═══════════════════════════════════════════════════════════════ */
+.left-panel {
+    -fx-background-color: #0d1117;
+    -fx-border-color: #30363d;
+    -fx-border-width: 0 1 0 0;
+}
+
+.section-header {
+    -fx-text-fill: #58a6ff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.section-hint {
+    -fx-text-fill: #6e7681;
+    -fx-font-size: 11px;
+}
+
+.section-label {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 11px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PEPTIDE INPUT TEXTAREA
+═══════════════════════════════════════════════════════════════ */
+.peptide-input {
+    -fx-control-inner-background: #161b22;
+    -fx-text-fill: #00e676;         /* Green text for DNA/amino acid input — feels scientific! */
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-border-color: #30363d;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-prompt-text-fill: #3d444d;
+}
+
+.peptide-input:focused {
+    -fx-border-color: #58a6ff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HLA ALLELE LIST
+═══════════════════════════════════════════════════════════════ */
+.allele-list {
+    -fx-control-inner-background: #161b22;
+    -fx-background-color: #161b22;
+    -fx-border-color: #30363d;
+    -fx-border-radius: 6px;
+}
+
+.allele-list .list-cell {
+    -fx-text-fill: #c9d1d9;
+    -fx-background-color: transparent;
+    -fx-padding: 6 10 6 10;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+.allele-list .list-cell:selected {
+    -fx-background-color: #1f6feb;
+    -fx-text-fill: #ffffff;
+}
+
+.allele-list .list-cell:hover {
+    -fx-background-color: #21262d;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SEARCH FIELD
+═══════════════════════════════════════════════════════════════ */
+.search-field {
+    -fx-control-inner-background: #161b22;
+    -fx-text-fill: #c9d1d9;
+    -fx-border-color: #30363d;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-prompt-text-fill: #3d444d;
+    -fx-padding: 8 12 8 12;
+}
+
+.search-field:focused {
+    -fx-border-color: #58a6ff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FILTER COMBOBOX
+═══════════════════════════════════════════════════════════════ */
+.filter-combo {
+    -fx-control-inner-background: #161b22;
+    -fx-text-fill: #c9d1d9;
+    -fx-border-color: #30363d;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.filter-combo .list-cell {
+    -fx-text-fill: #c9d1d9;
+    -fx-background-color: #161b22;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════ */
+
+/* Primary button: Blue "Run Prediction" */
+.primary-button {
+    -fx-background-color: #1f6feb;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 10 20 10 20;
+}
+
+.primary-button:hover {
+    -fx-background-color: #388bfd;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #1158c7;
+}
+
+.primary-button:disabled {
+    -fx-opacity: 0.5;
+}
+
+/* Secondary button: Gray "Load File" */
+.secondary-button {
+    -fx-background-color: #21262d;
+    -fx-text-fill: #c9d1d9;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #30363d;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #30363d;
+}
+
+/* Danger button: Red "Clear" */
+.danger-button {
+    -fx-background-color: #21262d;
+    -fx-text-fill: #ef5350;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #ef5350;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.danger-button:hover {
+    -fx-background-color: #ef5350;
+    -fx-text-fill: #ffffff;
+}
+
+/* Success button: Green "Export CSV" */
+.success-button {
+    -fx-background-color: #21262d;
+    -fx-text-fill: #00e676;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #00e676;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 8 16 8 16;
+}
+
+.success-button:hover {
+    -fx-background-color: #00e676;
+    -fx-text-fill: #000000;
+}
+
+.success-button:disabled {
+    -fx-opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS BAR (summary numbers at the top of right panel)
+═══════════════════════════════════════════════════════════════ */
+.stats-bar {
+    -fx-background-color: #161b22;
+    -fx-border-color: #30363d;
+    -fx-border-width: 0 0 1 0;
+}
+
+.stat-box {
+    -fx-padding: 8 20 8 20;
+}
+
+.stat-number {
+    -fx-text-fill: #58a6ff;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.stat-number-green {
+    -fx-text-fill: #00e676;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.stat-number-yellow {
+    -fx-text-fill: #ffca28;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.stat-number-red {
+    -fx-text-fill: #ef5350;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.stat-label {
+    -fx-text-fill: #6e7681;
+    -fx-font-size: 11px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESULTS TABLE
+═══════════════════════════════════════════════════════════════ */
+.results-table {
+    -fx-background-color: #0d1117;
+    -fx-border-color: transparent;
+}
+
+.results-table .column-header-background {
+    -fx-background-color: #161b22;
+}
+
+.results-table .column-header {
+    -fx-background-color: #161b22;
+    -fx-border-color: #30363d;
+    -fx-border-width: 0 1 1 0;
+    -fx-padding: 10 12 10 12;
+}
+
+.results-table .column-header .label {
+    -fx-text-fill: #8b949e;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.results-table .table-row-cell {
+    -fx-background-color: #0d1117;
+    -fx-border-color: #21262d;
+    -fx-border-width: 0 0 1 0;
+}
+
+.results-table .table-row-cell:odd {
+    -fx-background-color: #0d1117;
+}
+
+.results-table .table-row-cell:even {
+    -fx-background-color: #0d1117;
+}
+
+.results-table .table-row-cell:hover {
+    -fx-background-color: #161b22;
+}
+
+.results-table .table-row-cell:selected {
+    -fx-background-color: #1f6feb33;
+}
+
+.results-table .table-cell {
+    -fx-text-fill: #c9d1d9;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+
+/* Peptide column: monospace font for amino acid sequences */
+.results-table .table-cell:first-child {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c9d1d9;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHARTS
+═══════════════════════════════════════════════════════════════ */
+.binding-chart {
+    -fx-background-color: #0d1117;
+    -fx-padding: 10 16 10 16;
+}
+
+.binding-chart .chart-title {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 13px;
+}
+
+.binding-chart .axis-label {
+    -fx-text-fill: #6e7681;
+    -fx-font-size: 11px;
+}
+
+.binding-chart .chart-plot-background {
+    -fx-background-color: #161b22;
+}
+
+.binding-chart .chart-vertical-grid-lines {
+    -fx-stroke: #21262d;
+}
+
+.binding-chart .chart-horizontal-grid-lines {
+    -fx-stroke: #21262d;
+}
+
+.binding-chart .tick-label {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 10px;
+}
+
+.binding-chart .axis {
+    -fx-tick-label-fill: #8b949e;
+}
+
+.binder-pie-chart {
+    -fx-background-color: #0d1117;
+    -fx-padding: 10 16 10 16;
+}
+
+.binder-pie-chart .chart-title {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 13px;
+}
+
+.binder-pie-chart .chart-legend {
+    -fx-background-color: transparent;
+}
+
+.binder-pie-chart .chart-legend-item {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 11px;
+}
+
+/* Pie chart slice colors */
+.binder-pie-chart .data0.chart-pie { -fx-pie-color: #00e676; }  /* Strong Binders - Green */
+.binder-pie-chart .data1.chart-pie { -fx-pie-color: #ffca28; }  /* Weak Binders - Yellow */
+.binder-pie-chart .data2.chart-pie { -fx-pie-color: #ef5350; }  /* Non-Binders - Red */
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS BAR (bottom footer)
+═══════════════════════════════════════════════════════════════ */
+.status-bar {
+    -fx-background-color: #161b22;
+    -fx-border-color: #30363d;
+    -fx-border-width: 1 0 0 0;
+}
+
+.status-text {
+    -fx-text-fill: #8b949e;
+    -fx-font-size: 12px;
+}
+
+/* Progress bar: cyan accent */
+.progress .bar {
+    -fx-background-color: #00bcd4;
+    -fx-background-radius: 4px;
+}
+
+.progress .track {
+    -fx-background-color: #21262d;
+    -fx-background-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SEPARATOR LINES
+═══════════════════════════════════════════════════════════════ */
+.separator .line {
+    -fx-background-color: #30363d;
+    -fx-border-color: #30363d;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBARS (make them dark too)
+═══════════════════════════════════════════════════════════════ */
+.scroll-bar {
+    -fx-background-color: #161b22;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #30363d;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #8b949e;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #161b22;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALERT DIALOGS
+═══════════════════════════════════════════════════════════════ */
+.alert .header-panel {
+    -fx-background-color: #161b22;
+}
+
+.alert .content.label {
+    -fx-text-fill: #c9d1d9;
+}
